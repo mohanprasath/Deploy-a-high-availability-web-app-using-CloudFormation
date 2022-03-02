@@ -49,7 +49,8 @@ Resources:
           sudo systemctl start apache2.service
           sudo systemctl enable apache2.service
           cd /var/www/html
-          aws s3 cp s3://udagram20211105/index.html .
+          sudo chmod 007 index.html
+          sudo echo "It works! Udagram, Udacity" > index.html
       # ToDo: AMI ID of Ubuntu Linux machine. Too get one, try creating a VM from the web console.
       ImageId: ami-cmp-udacity
       # ToDo: Change the key-pair name, as applicable to you.
@@ -140,3 +141,9 @@ Outputs:
     Value: !Ref WebAppLB
     Export:
       Name: !Sub ${EnvName}-Public-Servers-LoadBalancer
+
+  LoadBalancerURL:
+    Description: URL of load balancer
+    Value: !Join ["", ["http://", !GetAtt WebServerAppLB.DNSName]]
+    Export:
+      Name: !Sub ${EnvironmentName}-LB-URL
