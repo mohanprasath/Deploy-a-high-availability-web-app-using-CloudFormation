@@ -1,3 +1,3 @@
 # run the following command to execute the scripts
 
-./create.sh Udagram network.yml network-parameters.json
+./create.sh mpc6 network.yml network-parameters.json

@@ -1,6 +1,3 @@
-Description: >
-  Mohan Prasath Chinnasamy / Udacity AWS Cloud Devops Developer Project # 3
-
 Parameters:
   EnvironmentName:
     Description: An environment name that will be prefixed to resource names
@@ -279,17 +276,14 @@ Resources:
       Type: AWS::AutoScaling::LaunchConfiguration
       Properties:
           UserData:
-              Fn::Base64: !Sub |
-                  #!/bin/bash
-                  apt-get update -y
-                  apt-get install unzip awscli -y
-                  apt-get install apache2 -y
-                  systemctl start apache2.service
-                  cd /var/www/html
-                  aws s3 cp s3://udacity-demo-1/udacity.zip .
-                  unzip -o udacity.zip
-          ImageId: ami-031e556ebe95c007e
-          KeyName: UdacityLondonKP
+            Fn::Base64: !Sub |
+              #!/bin/bash
+              apt-get update -y
+              apt-get install apache2 -y
+              systemctl start apache2.service
+              cd /var/www/html
+              echo "Udacity Demo Web Server Up and Running!" > index.html
+          ImageId: ami-090717c950a5c34d3  
           IamInstanceProfile: !Ref ProfileWithRolesForOurApp
           SecurityGroups:
           -   Ref: WebServerSecGroup
